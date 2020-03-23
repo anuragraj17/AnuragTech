@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.anuragtech.Dao.LoginDaoImpl;
+import com.anuragtech.HandleException.RecordNotFoundException;
 import com.anuragtech.Model.Login;
 
 
@@ -22,8 +23,11 @@ public class LoginService {
 		}
 		
 	}
-	public Login getUserData(Login login) {
+	public Login getUserData(Login login) throws Exception {
 		Login user = loginDao.selectUser(login);
+		if(user == null) {
+			throw new RecordNotFoundException("User Not found" + login.getEmailId());
+		}
 		return user;
 	}
 }

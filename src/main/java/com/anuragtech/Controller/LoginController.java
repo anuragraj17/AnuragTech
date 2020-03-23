@@ -4,7 +4,10 @@
 package com.anuragtech.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,13 +32,12 @@ public class LoginController {
 	public Login login(@RequestBody Login login) {
 		return loginService.getUserData(login);
 	}*/
-	@RequestMapping(method =RequestMethod.POST, value = "/home")
-	public String login(@RequestBody Login login) {
+	@PostMapping(value = "/home")
+	public ResponseEntity<Login> login(@RequestBody Login login) throws Exception {
 		login = loginService.getUserData(login);
-		JsonArray jsonArray = new JsonArray();
-		jsonArray.add(login.getEmailId());
-		jsonArray.add(login.getPassword());
-		return jsonArray.toString();
+		return new ResponseEntity<Login>(login, HttpStatus.OK);
+		
+		
 	}
 	
 	@RequestMapping(method =RequestMethod.POST, value = "/register")

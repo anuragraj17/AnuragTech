@@ -70,8 +70,7 @@ public class LoginDaoImpl extends GlobalDao<Login> implements LoginDao  {
 		
 		List<?> userList = getJdbcTemplate().query(sql.toString(), paramValues, paramTypes,rowMapper);
 		
-		Login userData = new Login();
-		return userData = !userList.isEmpty() ? (Login) userList.get(0) : userData;
+		return !userList.isEmpty() ? (Login) userList.get(0) : null;
 	}
 
 }
